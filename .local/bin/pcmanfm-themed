@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Launch PCManFM-Qt with this template's fixed application stylesheet."""
+import os
+from pathlib import Path
+import shutil
+import sys
+
+root = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config").expanduser()
+stylesheet = root / "pcmanfm-qt/theme.qss"
+binary = shutil.which("pcmanfm-qt")
+if binary is None:
+    sys.exit("PCManFM-Qt is not installed.")
+if not stylesheet.is_file():
+    sys.exit(f"Missing stylesheet: {stylesheet}")
+os.execv(binary, [binary, "-stylesheet", str(stylesheet), *sys.argv[1:]])

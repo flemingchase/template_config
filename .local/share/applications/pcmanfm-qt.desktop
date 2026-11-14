@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=PCManFM-Qt File Manager
+GenericName=File Manager
+Comment=Browse files with the fixed application palette
+Exec=pcmanfm-themed %U
+Icon=pcmanfm-qt
+Terminal=false
+StartupNotify=true
+DBusActivatable=false
+Categories=System;FileTools;FileManager;Qt;
+MimeType=inode/directory;

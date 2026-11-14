@@ -1,0 +1,27 @@
+/* Fixed application palette. */
+QWidget {
+    background-color: #000000;
+    color: #ffffff;
+    selection-background-color: #ffffff;
+    selection-color: #000000;
+}
+QAbstractItemView, QTreeView, QListView, QTableView,
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #000000;
+    alternate-background-color: #000000;
+    color: #ffffff;
+    selection-background-color: #ffffff;
+    selection-color: #000000;
+}
+QMenuBar, QMenu, QToolBar, QStatusBar, QHeaderView::section,
+QTabWidget::pane, QTabBar::tab, QPushButton, QToolButton {
+    background-color: #000000;
+    color: #ffffff;
+}
+QAbstractItemView::item:selected, QMenu::item:selected,
+QMenuBar::item:selected, QTabBar::tab:selected,
+QPushButton:checked, QToolButton:checked {
+    background-color: #ffffff;
+    color: #000000;
+}
+QTabBar::tab { padding: 6px 12px; }

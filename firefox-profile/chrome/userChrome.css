@@ -1,0 +1,50 @@
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+    :root {
+        --palette-background: #000000 !important;
+        --palette-foreground: #ffffff !important;
+        --lwt-accent-color: #000000 !important;
+        --lwt-text-color: #ffffff !important;
+        --toolbar-bgcolor: #000000 !important;
+        --toolbar-color: #ffffff !important;
+        --toolbar-field-background-color: #000000 !important;
+        --toolbar-field-color: #ffffff !important;
+        --toolbar-field-focus-background-color: #000000 !important;
+        --toolbar-field-focus-color: #ffffff !important;
+        --toolbox-background-color: #000000 !important;
+        --toolbox-background-color-inactive: #000000 !important;
+        --tab-background-color: #000000 !important;
+        --tab-background-color-hover: #000000 !important;
+        --tab-background-color-selected: #ffffff !important;
+        --tab-selected-bgcolor: #ffffff !important;
+        --tab-text-color: #ffffff !important;
+        --tab-text-color-selected: #000000 !important;
+        --tab-selected-textcolor: #000000 !important;
+    }
+    #navigator-toolbox, #titlebar, #TabsToolbar, #nav-bar,
+    #PersonalToolbar, #toolbar-menubar, #sidebar-main,
+    #urlbar-background, #searchbar {
+        background: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+    #urlbar-input, .searchbar-textbox {
+        color: var(--palette-foreground) !important;
+    }
+    .tabbrowser-tab:not([selected]) .tab-background {
+        background: var(--palette-background) !important;
+        box-shadow: none !important;
+    }
+    .tabbrowser-tab:not([selected]),
+    .tabbrowser-tab:not([selected]) .tab-content,
+    .tabbrowser-tab:not([selected]) .tab-label {
+        color: var(--palette-foreground) !important;
+    }
+    .tabbrowser-tab[selected] .tab-background {
+        background: var(--palette-foreground) !important;
+        box-shadow: none !important;
+    }
+    .tabbrowser-tab[selected],
+    .tabbrowser-tab[selected] .tab-content,
+    .tabbrowser-tab[selected] .tab-label {
+        color: var(--palette-background) !important;
+    }
+}
