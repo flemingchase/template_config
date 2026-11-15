@@ -13,12 +13,17 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
+
+      - name: Install zsh
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends --yes zsh
 
       - name: Validate Python, TOML and INI syntax
         run: |
