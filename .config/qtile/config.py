@@ -6,32 +6,40 @@ from libqtile.utils import guess_terminal
 from libqtile.widget import backlight
 from my_widgets.caps_num_lock_indicator import MyCapsNumLockIndicator
 import re
+import os
+import shutil
 
-# Default color palette.
+# Shared Qt palette for applications launched by this desktop session.
+if (shutil.which("qt6ct") and
+        (Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config") /
+         "qt6ct/qt6ct.conf").is_file()):
+    os.environ["QT_QPA_PLATFORMTHEME"] = "qt6ct"
+
+# Gotham color palette.
 colors = {
     "primary": {
-        "background": "#000000",
-        "foreground": "#ffffff"
+        "background": "#0a0f14",
+        "foreground": "#98d1ce"
     },
     "normal": {
-        "black": "#000000",
-        "red": "#cd0000",
-        "green": "#00cd00",
-        "yellow": "#cdcd00",
-        "blue": "#0000ee",
-        "magenta": "#cd00cd",
-        "cyan": "#00cdcd",
-        "white": "#e5e5e5"
+        "black": "#0a0f14",
+        "red": "#c33027",
+        "green": "#26a98b",
+        "yellow": "#edb54b",
+        "blue": "#195465",
+        "magenta": "#4e5165",
+        "cyan": "#33859d",
+        "white": "#98d1ce"
     },
     "bright": {
-        "black": "#7f7f7f",
-        "red": "#ff0000",
-        "green": "#00ff00",
-        "yellow": "#ffff00",
-        "blue": "#5c5cff",
-        "magenta": "#ff00ff",
-        "cyan": "#00ffff",
-        "white": "#ffffff"
+        "black": "#10151b",
+        "red": "#d26939",
+        "green": "#081f2d",
+        "yellow": "#245361",
+        "blue": "#093748",
+        "magenta": "#888ba5",
+        "cyan": "#599caa",
+        "white": "#d3ebe9"
     }
 }
 

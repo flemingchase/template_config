@@ -1,0 +1,84 @@
+@-moz-document url-prefix("about:preferences") {
+    :root {
+        --palette-background: #0a0f14 !important;
+        --palette-foreground: #98d1ce !important;
+        --background-color-canvas: var(--palette-background) !important;
+        --background-color-box: var(--palette-background) !important;
+        --background-color-box-info: var(--palette-background) !important;
+        --card-background-color: var(--palette-background) !important;
+        --dialog-background-color: var(--palette-background) !important;
+        --input-background-color: var(--palette-background) !important;
+        --panel-background-color: var(--palette-background) !important;
+        --popup-background-color: var(--palette-background) !important;
+        --text-color: var(--palette-foreground) !important;
+        --text-color-deemphasized: var(--palette-foreground) !important;
+        --text-color-disabled: var(--palette-foreground) !important;
+        --button-text-color: var(--palette-foreground) !important;
+        --input-text-color: var(--palette-foreground) !important;
+        --panel-text-color: var(--palette-foreground) !important;
+        --border-color: var(--palette-foreground) !important;
+        --border-radius-xsmall: 0px !important;
+        --border-radius-small: 0px !important;
+        --border-radius-medium: 0px !important;
+        --border-radius-large: 0px !important;
+        --border-radius-xlarge: 0px !important;
+        --border-radius-circle: 0px !important;
+        --button-border-radius: 0px !important;
+        --card-border-radius: 0px !important;
+        --dialog-border-radius: 0px !important;
+        --input-border-radius: 0px !important;
+        --input-search-border-radius: 0px !important;
+        --panel-border-radius: 0px !important;
+        --panel-menuitem-border-radius: 0px !important;
+        --popup-border-radius: 0px !important;
+        --select-border-radius: 0px !important;
+        background-color: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+
+    body, #preferences-root, .main-content {
+        background-color: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+
+    button, input, select, menulist, dialog,
+    .card, .dialogBox, .info-box-container {
+        border-radius: 0 !important;
+    }
+}
+
+@-moz-document url("about:newtab"), url("about:home") {
+    :root {
+        --palette-background: #0a0f14 !important;
+        --palette-foreground: #98d1ce !important;
+        --newtab-background-color: var(--palette-background) !important;
+        --newtab-background-color-secondary: var(--palette-background) !important;
+        --newtab-text-primary-color: var(--palette-foreground) !important;
+        --newtab-text-secondary-color: var(--palette-foreground) !important;
+        background-color: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+
+    body, .activity-stream, .outer-wrapper,
+    .search-wrapper, .search-inner-wrapper {
+        background-color: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+
+    content-search-handoff-ui,
+    moz-urlbar {
+        --content-search-handoff-ui-background-color: var(--palette-background) !important;
+        --content-search-handoff-ui-color: var(--palette-foreground) !important;
+        --content-search-handoff-ui-fill: var(--palette-foreground) !important;
+        --content-search-handoff-ui-caret-color: var(--palette-foreground) !important;
+        --urlbar-background-color: var(--palette-background) !important;
+        --urlbar-background-color-focus: var(--palette-background) !important;
+        --toolbar-field-text-color: var(--palette-foreground) !important;
+        --toolbar-field-text-color-focus: var(--palette-foreground) !important;
+        --urlbarview-background-color-hover: var(--palette-foreground) !important;
+        --urlbarview-background-color-selected: var(--palette-foreground) !important;
+        --urlbarview-text-color-hover: var(--palette-background) !important;
+        --urlbarview-text-color-selected: var(--palette-background) !important;
+        border-radius: 0 !important;
+    }
+}

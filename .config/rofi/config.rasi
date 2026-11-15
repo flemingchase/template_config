@@ -16,8 +16,8 @@ window-format: "";
 display-drun: "";
 }
 * {
-    foreground:                  #ffffff;
-    background:                  #000000;
+    foreground:                  #98d1ce;
+    background:                  #0a0f14;
     selected-normal-foreground:  @background;
     normal-foreground:           @foreground;
     alternate-normal-background: @background;

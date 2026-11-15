@@ -12,31 +12,31 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-# Default color palette.
+# Gotham color palette.
 colors = {
     "primary": {
-        "background": "#000000",
-        "foreground": "#ffffff"
+        "background": "#0a0f14",
+        "foreground": "#98d1ce"
     },
     "normal": {
-        "black": "#000000",
-        "red": "#cd0000",
-        "green": "#00cd00",
-        "yellow": "#cdcd00",
-        "blue": "#0000ee",
-        "magenta": "#cd00cd",
-        "cyan": "#00cdcd",
-        "white": "#e5e5e5"
+        "black": "#0a0f14",
+        "red": "#c33027",
+        "green": "#26a98b",
+        "yellow": "#edb54b",
+        "blue": "#195465",
+        "magenta": "#4e5165",
+        "cyan": "#33859d",
+        "white": "#98d1ce"
     },
     "bright": {
-        "black": "#7f7f7f",
-        "red": "#ff0000",
-        "green": "#00ff00",
-        "yellow": "#ffff00",
-        "blue": "#5c5cff",
-        "magenta": "#ff00ff",
-        "cyan": "#00ffff",
-        "white": "#ffffff"
+        "black": "#10151b",
+        "red": "#d26939",
+        "green": "#081f2d",
+        "yellow": "#245361",
+        "blue": "#093748",
+        "magenta": "#888ba5",
+        "cyan": "#599caa",
+        "white": "#d3ebe9"
     }
 }
 config.load_autoconfig(True)
@@ -1911,7 +1911,7 @@ c.statusbar.position = 'bottom'
 ##   - always: Always show the statusbar.
 ##   - never: Always hide the statusbar.
 ##   - in-mode: Show the statusbar when in modes other than normal mode.
-c.statusbar.show = 'always'
+c.statusbar.show = 'in-mode'
 
 ## List of widgets displayed in the statusbar.
 ## Type: List of StatusbarWidget
@@ -1974,7 +1974,7 @@ c.tabs.indicator.padding = {'top': 0, 'bottom': 0, 'left': 4, 'right': 4}
 
 ## Width (in pixels) of the progress indicator (0 to disable).
 ## Type: Int
-c.tabs.indicator.width = 2
+c.tabs.indicator.width = 0
 
 ## How to behave when the last tab is closed. If the
 ## `tabs.tabs_are_windows` setting is set, this is ignored and the
@@ -2060,7 +2060,7 @@ c.tabs.padding = {'top': 5, 'bottom': 5, 'left': 10, 'right': 10}
 ##   - bottom
 ##   - left
 ##   - right
-# c.tabs.position = 'top'
+c.tabs.position = 'top'
 
 ## Which tab to select when the focused tab is removed.
 ## Type: SelectOnRemove
@@ -2125,7 +2125,7 @@ c.tabs.title.format = '{host}'
 ## Format to use for the tab title for pinned tabs. The same placeholders
 ## like for `tabs.title.format` are defined.
 ## Type: FormatString
-# c.tabs.title.format_pinned = '{index}'
+c.tabs.title.format_pinned = '{index}'
 
 ## Show tooltips on tabs. Note this setting only affects windows opened
 ## after it has been set.
@@ -2158,7 +2158,7 @@ c.tabs.title.format = '{host}'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'about:blank'
+c.url.default_page = (config.configdir / 'blank.html').as_uri()
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -2207,7 +2207,7 @@ c.url.searchengines = {
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
-c.url.start_pages = ['about:blank']
+c.url.start_pages = [(config.configdir / 'blank.html').as_uri()]
 
 ## URL parameters to strip when yanking a URL.
 ## Type: List of String
@@ -2234,7 +2234,7 @@ c.window.transparent = True
 
 ## Default zoom level.
 ## Type: Perc
-c.zoom.default = '150%'
+c.zoom.default = '125%'
 
 ## Available zoom levels.
 ## Type: List of Perc
@@ -2560,3 +2560,9 @@ config.bind('k', 'scroll up')
 # config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
+
+# Native website appearance: sites choose their own colors.
+# A dark fallback alone makes unstyled text unreadable, so keep the native one.
+c.colors.webpage.bg = 'white'
+c.colors.webpage.preferred_color_scheme = 'dark'
+c.colors.webpage.darkmode.enabled = False

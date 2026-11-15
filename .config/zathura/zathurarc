@@ -1,4 +1,4 @@
-set inputbar-bg "#000000"
+set inputbar-bg "#0a0f14"
 set pages-per-row 1
 set selection-clipboard clipboard
 set adjust-open "best-fit"
@@ -17,10 +17,10 @@ set synctex-editor-command "nvr --remote-silent +%{line} %{input}"
 
 set font 'Fira Mono 20'
 set recolor
-set statusbar-bg "#000000"
-set default-bg "#000000"
-set recolor-lightcolor "#000000"
-set inputbar-fg "#ffffff"
-set statusbar-fg "#ffffff"
-set default-fg "#ffffff"
-set recolor-darkcolor "#ffffff"
+set statusbar-bg "#0a0f14"
+set default-bg "#0a0f14"
+set recolor-lightcolor "#0a0f14"
+set inputbar-fg "#98d1ce"
+set statusbar-fg "#98d1ce"
+set default-fg "#98d1ce"
+set recolor-darkcolor "#98d1ce"

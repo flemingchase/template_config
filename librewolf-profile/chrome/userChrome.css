@@ -1,0 +1,192 @@
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+    :root {
+        --palette-background: #0a0f14 !important;
+        --palette-foreground: #98d1ce !important;
+        --lwt-accent-color: #0a0f14 !important;
+        --lwt-text-color: #98d1ce !important;
+        --toolbar-bgcolor: #0a0f14 !important;
+        --toolbar-color: #98d1ce !important;
+        --toolbar-field-background-color: #0a0f14 !important;
+        --toolbar-field-color: #98d1ce !important;
+        --toolbar-field-focus-background-color: #0a0f14 !important;
+        --toolbar-field-focus-color: #98d1ce !important;
+        --toolbar-field-background-color-focus: #0a0f14 !important;
+        --toolbar-field-text-color: #98d1ce !important;
+        --toolbar-field-text-color-focus: #98d1ce !important;
+        --toolbar-field-border-color: #98d1ce !important;
+        --toolbar-field-border-color-focus: #98d1ce !important;
+        --urlbar-background-color: #0a0f14 !important;
+        --urlbar-background-color-focus: #0a0f14 !important;
+        --urlbar-box-background-color: #0a0f14 !important;
+        --urlbar-box-background-color-hover: #98d1ce !important;
+        --urlbar-box-background-color-active: #98d1ce !important;
+        --urlbar-box-background-color-focus: #0a0f14 !important;
+        --urlbar-box-text-color: #98d1ce !important;
+        --urlbar-box-text-color-hover: #0a0f14 !important;
+        --urlbar-box-text-color-active: #0a0f14 !important;
+        --urlbar-box-text-color-focus: #98d1ce !important;
+        --urlbarview-action-button-background-color: #0a0f14 !important;
+        --urlbarview-action-button-background-color-hover: #98d1ce !important;
+        --urlbarview-background-color-hover: #98d1ce !important;
+        --urlbarview-background-color-selected: #98d1ce !important;
+        --urlbarview-separator-color: #98d1ce !important;
+        --urlbarview-text-color-action: #98d1ce !important;
+        --urlbarview-text-color-hover: #0a0f14 !important;
+        --urlbarview-text-color-secondary: #98d1ce !important;
+        --urlbarview-text-color-selected: #0a0f14 !important;
+        --toolbox-background-color: #0a0f14 !important;
+        --toolbox-background-color-inactive: #0a0f14 !important;
+        --tab-background-color: #0a0f14 !important;
+        --tab-background-color-hover: #0a0f14 !important;
+        --tab-background-color-selected: #98d1ce !important;
+        --tab-selected-bgcolor: #98d1ce !important;
+        --tab-text-color: #98d1ce !important;
+        --tab-text-color-selected: #0a0f14 !important;
+        --tab-selected-textcolor: #0a0f14 !important;
+        --tab-border-radius: 0px !important;
+        --tab-min-height: 18px !important;
+        --tab-content-button-size: 16px !important;
+        --tab-content-button-padding: 2px !important;
+        --tab-label-line-height: 1.2 !important;
+        --panel-background-color: #0a0f14 !important;
+        --panel-text-color: #98d1ce !important;
+        --panel-border-color: #98d1ce !important;
+        --panel-separator-color: #98d1ce !important;
+        --popup-background-color: #0a0f14 !important;
+        --popup-border-color: #98d1ce !important;
+        --border-radius-xsmall: 0px !important;
+        --border-radius-small: 0px !important;
+        --border-radius-medium: 0px !important;
+        --border-radius-large: 0px !important;
+        --border-radius-xlarge: 0px !important;
+        --border-radius-circle: 0px !important;
+        --button-border-radius: 0px !important;
+        --input-border-radius: 0px !important;
+        --input-search-border-radius: 0px !important;
+        --panel-border-radius: 0px !important;
+        --panel-menuitem-border-radius: 0px !important;
+        --popup-border-radius: 0px !important;
+        --toolbarbutton-border-radius: 0px !important;
+        --urlbar-background-border-radius: 0px !important;
+        --urlbar-border-radius: 0px !important;
+        --urlbar-inner-border-radius: 0px !important;
+        --urlbarview-border-radius: 0px !important;
+        --urlbarview-icon-border-radius: 0px !important;
+        --urlbarview-row-border-radius: 0px !important;
+    }
+    #navigator-toolbox, #titlebar, #TabsToolbar, #nav-bar,
+    #PersonalToolbar, #toolbar-menubar, #sidebar-main,
+    #urlbar-background, #searchbar {
+        background: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+    #urlbar-input, .searchbar-textbox {
+        color: var(--palette-foreground) !important;
+    }
+    #urlbar, .urlbar, #searchbar,
+    #PopupSearchAutoComplete {
+        --toolbar-field-background-color: var(--palette-background) !important;
+        --toolbar-field-background-color-focus: var(--palette-background) !important;
+        --toolbar-field-text-color: var(--palette-foreground) !important;
+        --toolbar-field-text-color-focus: var(--palette-foreground) !important;
+        --toolbar-field-border-color: var(--palette-foreground) !important;
+        --toolbar-field-border-color-focus: var(--palette-foreground) !important;
+        --urlbar-background-color: var(--palette-background) !important;
+        --urlbar-background-color-focus: var(--palette-background) !important;
+        --urlbarview-background-color-hover: var(--palette-foreground) !important;
+        --urlbarview-background-color-selected: var(--palette-foreground) !important;
+        --urlbarview-text-color-hover: var(--palette-background) !important;
+        --urlbarview-text-color-selected: var(--palette-background) !important;
+        --urlbarview-text-color-action: var(--palette-foreground) !important;
+        --urlbarview-text-color-secondary: var(--palette-foreground) !important;
+        --urlbarview-separator-color: var(--palette-foreground) !important;
+        background-color: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+    .urlbarView, .urlbarView-results,
+    #PopupSearchAutoComplete::part(content),
+    .search-panel-tree {
+        background: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+    }
+    :is(.urlbarView-row, .searchbar-engine-one-off-item,
+        .search-panel-tree > .autocomplete-richlistitem):is([selected], :hover) {
+        background-color: var(--palette-foreground) !important;
+        color: var(--palette-background) !important;
+    }
+    #urlbar-background, #searchbar,
+    toolbarbutton, .toolbarbutton-icon,
+    button, input, select, menulist {
+        border-radius: 0 !important;
+    }
+    .tabbrowser-tab:not([selected]) .tab-background {
+        background: var(--palette-background) !important;
+        box-shadow: none !important;
+    }
+    .tabbrowser-tab:not([selected]),
+    .tabbrowser-tab:not([selected]) .tab-content,
+    .tabbrowser-tab:not([selected]) .tab-label {
+        color: var(--palette-foreground) !important;
+    }
+    .tabbrowser-tab[selected] .tab-background {
+        background: var(--palette-foreground) !important;
+        box-shadow: none !important;
+    }
+    .tabbrowser-tab[selected],
+    .tabbrowser-tab[selected] .tab-content,
+    .tabbrowser-tab[selected] .tab-label {
+        color: var(--palette-background) !important;
+    }
+
+    /* Square, fully boxed horizontal tabs (qutebrowser-style). */
+    #tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab {
+        padding-inline: 0 !important;
+    }
+    #tabbrowser-tabs[orient="horizontal"] .tab-stack {
+        margin: 0 !important;
+    }
+    #tabbrowser-tabs[orient="horizontal"] .tab-background {
+        margin-block: 0 !important;
+        border: 1px solid var(--palette-foreground, currentColor) !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    #tabbrowser-tabs[orient="horizontal"] .tabbrowser-tab + .tabbrowser-tab {
+        margin-inline-start: -1px !important;
+    }
+    menupopup,
+    panel {
+        --panel-background-color: var(--palette-background) !important;
+        --panel-text-color: var(--palette-foreground) !important;
+        --panel-border-color: var(--palette-foreground) !important;
+        --panel-separator-color: var(--palette-foreground) !important;
+        --popup-background-color: var(--palette-background) !important;
+        --popup-border-color: var(--palette-foreground) !important;
+        --text-color: var(--palette-foreground) !important;
+        --text-color-deemphasized: var(--palette-foreground) !important;
+        --text-color-disabled: var(--palette-foreground) !important;
+        color: var(--palette-foreground) !important;
+    }
+    menupopup::part(content),
+    panel::part(content) {
+        background: var(--palette-background) !important;
+        color: var(--palette-foreground) !important;
+        border-color: var(--palette-foreground) !important;
+    }
+    :is(menu, menuitem) {
+        color: var(--palette-foreground) !important;
+        fill: currentColor !important;
+        border-radius: 0 !important;
+    }
+    :is(menu, menuitem):is([_moz-menuactive], :hover):not([disabled]) {
+        background-color: var(--palette-foreground) !important;
+        color: var(--palette-background) !important;
+    }
+    :is(menu, menuitem)[disabled] {
+        color: var(--palette-foreground) !important;
+    }
+    menuseparator::before {
+        border-color: var(--palette-foreground) !important;
+    }
+}

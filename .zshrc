@@ -36,6 +36,11 @@ alias gp="git push"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=vim
 
+# Use the bundled Gotham palette for Qt applications.
+if (( $+commands[qt6ct] )) && [[ -r ${XDG_CONFIG_HOME:-$HOME/.config}/qt6ct/qt6ct.conf ]]; then
+    export QT_QPA_PLATFORMTHEME=qt6ct
+fi
+
 fzathura() {
     emulate -L zsh
     local file

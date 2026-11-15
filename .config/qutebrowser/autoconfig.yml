@@ -1,10 +1,16 @@
 config_version: 2
 settings:
   colors.webpage.darkmode.enabled:
-    global: true
+    global: false
   colors.webpage.preferred_color_scheme:
     global: dark
   content.pdfjs:
     global: true
   scrolling.smooth:
     global: true
+  statusbar.position:
+    global: bottom
+  statusbar.show:
+    global: in-mode
+  tabs.position:
+    global: top
