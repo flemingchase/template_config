@@ -1,0 +1,72 @@
+name: Validate templates
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Python, TOML and INI syntax
+        run: |
+          python - <<'PY'
+          import ast
+          import configparser
+          from pathlib import Path
+          import tomllib
+
+          root = Path.cwd()
+          python_files = [
+              root / "install.py",
+              root / ".local/bin/pcmanfm-themed",
+              root / ".config/qutebrowser/config.py",
+              *sorted((root / ".config/qtile").rglob("*.py")),
+          ]
+          for path in python_files:
+              ast.parse(path.read_text(), filename=str(path))
+
+          toml_files = [
+              root / ".config/alacritty/alacritty.toml",
+              root / ".config/alacritty/theme.toml",
+          ]
+          for path in toml_files:
+              with path.open("rb") as stream:
+                  tomllib.load(stream)
+
+          for path in [
+              root / "etc/plymouth/plymouthd.conf",
+              root / ".local/share/applications/pcmanfm-qt.desktop",
+          ]:
+              parser = configparser.ConfigParser(interpolation=None, strict=True)
+              with path.open() as stream:
+                  parser.read_file(stream, source=str(path))
+
+          ly_path = root / "etc/ly/config.ini"
+          ly_parser = configparser.ConfigParser(interpolation=None, strict=True)
+          ly_parser.read_string("[ly]\n" + ly_path.read_text(), source=str(ly_path))
+          PY
+
+      - name: Validate YAML and zsh syntax
+        run: |
+          ruby -e "require 'yaml'; YAML.safe_load_file('.config/qutebrowser/autoconfig.yml', aliases: true)"
+          zsh -n .zshrc
+
+      - name: Preview restore without writing files
+        run: |
+          preview_home="$(mktemp -d)"
+          rmdir "$preview_home"
+          python install.py --home "$preview_home" --dry-run > /dev/null
+          test ! -e "$preview_home"

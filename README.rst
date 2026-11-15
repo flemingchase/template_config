@@ -1,6 +1,11 @@
 Standalone application templates
 ================================
 
+.. note::
+
+   **Vibe-coding disclaimer:** this project was "vibe coded" with OpenAI Codex.
+   Review and test the code and configuration before relying on it.
+
 This bundle contains portable copies of the current application configurations
 for Alacritty, Zathura, Rofi, Firefox, Clementine, Sioyek, PCManFM-Qt, Qtile and
 qutebrowser, together with the zsh and Vim setup, the Ly login-manager
@@ -273,6 +278,14 @@ Vim loading, loaded Qtile and qutebrowser configurations, and exercised restore
 installation, repeat runs, backups and Firefox copying in a temporary home.
 No active settings were used as installation destinations. Desktop rendering
 and hardware behavior were not tested during this refresh.
+
+License
+-------
+
+Original template scripts, documentation and configuration material are
+released under the Zero-Clause BSD license; see ``LICENSE``. Bundled plugins,
+the wallpaper and the Plymouth theme retain their upstream terms; see
+``THIRD_PARTY_LICENSES.md``.
 
 Useful upstream references
 --------------------------
