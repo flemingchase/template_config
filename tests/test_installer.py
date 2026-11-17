@@ -150,5 +150,32 @@ class BrowserOverlayTests(unittest.TestCase):
         self.assertFalse(self.home.exists())
 
 
+class VimPluginTests(unittest.TestCase):
+    def test_restore_skips_downloaded_plugins_and_preserves_installed_plugins(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            bundle = root / 'bundle'
+            home = root / 'home'
+            for relative, content in (
+                    ('.vimrc', 'call plug#begin()\ncall plug#end()\n'),
+                    ('.vim/autoload/plug.vim', '" plugin manager\n'),
+                    ('.vim/after/syntax/tex.vim', '" custom syntax\n'),
+                    ('.vim/plugged/example/plugin/example.vim', '" source download\n')):
+                path = bundle / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content)
+            installed = home / '.vim/plugged/example/plugin/example.vim'
+            installed.parent.mkdir(parents=True)
+            installed.write_text('" destination customization\n')
+
+            writes = install.plan(bundle, home, home / '.config', home / '.local/share')
+            self.assertEqual({path.relative_to(home).as_posix() for path, _, _ in writes},
+                             {'.vimrc', '.vim/autoload/plug.vim', '.vim/after/syntax/tex.vim'})
+            for path, content, mode in writes:
+                install.save(path, content, mode)
+            self.assertEqual(installed.read_text(), '" destination customization\n')
+            self.assertTrue((home / '.vim/autoload/plug.vim').is_file())
+
+
 if __name__ == "__main__":
     unittest.main()

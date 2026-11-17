@@ -24,7 +24,7 @@ Layout
 
 * .config/: application settings, including Qtile's widget and wallpaper.
 * .zshrc: shell preferences and functions, with theme integration removed.
-* .vimrc and .vim/: Vim settings, custom TeX syntax, plugins and plugin manager.
+* .vimrc and .vim/: Vim settings, plugin declarations, custom TeX syntax and vim-plug.
 * .config/qt6ct/: the standalone Gotham palette for Qt 6 applications.
 * .config/environment.d/60-qt6ct.conf: selects the Qt 6 palette plugin.
 * .local/bin/pcmanfm-themed: an independent launcher selecting the Qt 6 palette.
@@ -82,6 +82,33 @@ Then restore the settings for your normal account, without sudo::
 
     python3 install.py
 
+To restore only particular application settings, select their components::
+
+    python3 install.py --list-components
+    python3 install.py --components zsh,vim,qtile,alacritty,qutebrowser --dry-run
+    python3 install.py --components zsh,vim,qtile,alacritty,qutebrowser
+
+``--components`` accepts comma-separated names and can be repeated. Available
+components are ``zsh``, ``vim``, ``qtile``, ``alacritty``, ``qutebrowser``,
+``rofi``, ``zathura``, ``clementine``, ``sioyek``, ``pcmanfm-qt``, ``qt6ct``,
+``firefox`` and ``librewolf``. Without this option, the original full restore
+behavior is retained. Unknown or empty component names fail before any writes.
+An explicit selection leaves every other application's existing settings alone.
+
+The ``pcmanfm-qt`` component includes its launcher and desktop entry, while
+``qt6ct`` includes its shared palette and environment entry. Select both to use
+the provided PCManFM-Qt launcher with its intended shared Qt palette. Browser
+overlays require both their selected component and an existing profile argument.
+Ly and Plymouth remain manual system-wide restorations and are not user-level
+components. This selection controls configuration files only; it does not
+install applications or remove existing application settings.
+
+Optional helper commands referenced by selected settings remain optional:
+Qtile's Rofi/file-manager/clipboard shortcuts need their corresponding tools,
+the shell's file selector and screenshots need their helper programs, and
+VimTeX's configured PDF viewer needs Zathura. These features are available when
+the associated applications are installed.
+
 This copies .config, .local and the shell/Vim dotfiles, uses your HOME and XDG configuration/data
 locations, and writes the PCManFM-Qt desktop entry with the correct launcher
 path for the destination account. It also resolves the qt6ct color-scheme path
@@ -91,6 +118,13 @@ Repeated installation skips unchanged files. No applications are restarted.
 .zshrc goes to $ZDOTDIR/.zshrc if ZDOTDIR is set; otherwise it goes to ~/.zshrc.
 .vimrc and .vim always go under the destination home. With --home, .zshrc also
 goes under that home rather than inheriting the current account's ZDOTDIR.
+
+After restoring the settings, open Vim as your normal user and run::
+
+    :PlugInstall
+
+Git and internet access are required to download the declared Vim plugins.
+Wait for installation to finish, then restart Vim.
 
 For staging under a different destination home::
 
@@ -268,23 +302,28 @@ scrot, dropbox-cli, rbenv and virtualenvwrapper. Those commands are needed only
 for their associated features; guarded environment-manager setup stays guarded.
 No history file is copied.
 
-The .vim directory includes your custom TeX syntax and snapshots of VimTeX,
-vim-airline, vim-airline-themes and UltiSnips. A local autoload/plug.vim is
-included because the source setup used a system-wide vim-plug installation.
-No plugin download is needed to load these bundled copies. Plugin licenses
-are retained; Git metadata, bytecode, swap files and netrw browsing history
-are omitted.
+The .vim directory includes your custom TeX syntax and the vim-plug manager
+at autoload/plug.vim. The .vimrc declares VimTeX, vim-airline,
+vim-airline-themes and UltiSnips. Their downloaded files are not bundled.
+After restoring the configuration, run ``:PlugInstall`` inside Vim with Git
+installed and internet access available, then restart Vim. Until then,
+plugin-dependent features are unavailable.
 
-Use a Vim build with Python 3 support for UltiSnips. The configured clipboard
-integration also requires a suitable Vim build/provider and clipboard tool.
+The .vim/plugged directory is ignored by Git and skipped by the restore
+helper, so local plugin downloads are not copied to another account. Existing
+plugins in the destination home are left in place.
+
+Use a Vim build with Python 3 support for UltiSnips. The clipboard integration
+is enabled only in Vim builds that support it; ordinary terminal Vim remains
+usable without that feature. Remote-server startup is best-effort, so a system
+that prevents local listeners can still open Vim normally.
 VimTeX's compilation/viewing features need an appropriate TeX installation,
 latexmk and Zathura. These external programs are not included in the bundle.
 
-The bundled plugins are source snapshots rather than Git checkouts. To switch
-to plugin-manager updates later, keep a backup of .vim/plugged, move that
-snapshot directory aside, then use :PlugInstall with Git and network access.
-Your plugin declarations remain in .vimrc. Review any local plugin edits
-before replacing the snapshots.
+If an earlier version of this bundle installed plugin snapshots into your
+~/.vim/plugged directory, review any local edits and move that directory to a
+backup before running ``:PlugInstall``. The new downloads are Git checkouts
+managed by vim-plug; use ``:PlugUpdate`` for subsequent updates.
 
 What was preserved and omitted
 ------------------------------
@@ -368,7 +407,7 @@ License
 -------
 
 Original template scripts, documentation and configuration material are
-released under the Zero-Clause BSD license; see ``LICENSE``. Bundled plugins,
+released under the Zero-Clause BSD license; see ``LICENSE``. Bundled vim-plug,
 the wallpaper and the Plymouth theme retain their upstream terms; see
 ``THIRD_PARTY_LICENSES.md``.
 

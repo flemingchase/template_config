@@ -11,6 +11,47 @@ import tempfile
 import uuid
 
 
+# Component paths are relative to this repository. System-wide Ly and Plymouth
+# assets are deliberately absent: the user-level restore never installs them.
+COMPONENT_PATHS = {
+    'zsh': ('.zshrc',),
+    'vim': ('.vimrc', '.vim'),
+    'qtile': ('.config/qtile',),
+    'alacritty': ('.config/alacritty',),
+    'qutebrowser': ('.config/qutebrowser',),
+    'rofi': ('.config/rofi',),
+    'zathura': ('.config/zathura',),
+    'clementine': ('.config/Clementine',),
+    'sioyek': ('.config/sioyek',),
+    'pcmanfm-qt': ('.config/pcmanfm-qt', '.local/bin/pcmanfm-themed',
+                   '.local/share/applications/pcmanfm-qt.desktop'),
+    'qt6ct': ('.config/qt6ct', '.config/environment.d/60-qt6ct.conf'),
+    'firefox': ('firefox-profile',),
+    'librewolf': ('librewolf-profile',),
+}
+COMPONENTS = frozenset(COMPONENT_PATHS)
+
+
+def selected_components(components):
+    """Validate a selection; None preserves the traditional full restore."""
+    if components is None:
+        return None
+    if isinstance(components, str):
+        components = components.split(',')
+    selected = frozenset(components)
+    unknown = selected - COMPONENTS
+    if unknown:
+        raise ValueError('Unknown template components: ' + ', '.join(sorted(unknown)))
+    return selected
+
+
+def component_selected(relative, components):
+    if components is None:
+        return True
+    return any(relative.is_relative_to(Path(prefix))
+               for component in components for prefix in COMPONENT_PATHS[component])
+
+
 def desktop_argument(value):
     value = str(value).replace('%', '%%')
     for char in ('\\', '"', '`', '$'):
@@ -26,12 +67,17 @@ def qsettings_string(value):
 
 
 def plan(bundle, home, config, data, firefox_profile=None, zshdir=None,
-         librewolf_profile=None):
+         librewolf_profile=None, components=None):
+    components = selected_components(components)
     writes = []
     for relative, destination in (('.config', config), ('.local/bin', home / '.local/bin'),
                                   ('.local/share', data), ('.vim', home / '.vim')):
         source = bundle / relative
         for filename in sorted(source.rglob('*')):
+            if not component_selected(filename.relative_to(bundle), components):
+                continue
+            if relative == '.vim' and filename.relative_to(source).parts[0] == 'plugged':
+                continue
             if not filename.is_file() or any(part in ('__pycache__', '.git') for part in filename.parts) or filename.suffix in ('.pyc', '.pyo'):
                 continue
             content = filename.read_bytes()
@@ -46,12 +92,12 @@ def plan(bundle, home, config, data, firefox_profile=None, zshdir=None,
             writes.append((target, content, stat.S_IMODE(filename.stat().st_mode)))
     for name, destination in (('.vimrc', home / '.vimrc'), ('.zshrc', (zshdir or home) / '.zshrc')):
         filename = bundle / name
-        if filename.is_file():
+        if component_selected(Path(name), components) and filename.is_file():
             writes.append((destination, filename.read_bytes(), stat.S_IMODE(filename.stat().st_mode)))
     for application, profile, overlay_name in (
             ('Firefox', firefox_profile, 'firefox-profile'),
             ('LibreWolf', librewolf_profile, 'librewolf-profile')):
-        if profile is None:
+        if profile is None or not component_selected(Path(overlay_name), components):
             continue
         if not profile.is_dir():
             raise ValueError(
@@ -103,8 +149,20 @@ def main(argv=None):
     parser.add_argument('--home', type=Path, help='Alternate destination home; uses its .config and .local/share')
     parser.add_argument('--firefox-profile', type=Path, help='Existing destination Firefox profile directory')
     parser.add_argument('--librewolf-profile', type=Path, help='Existing destination LibreWolf profile directory')
+    parser.add_argument('--components', action='append', metavar='NAME[,NAME...]',
+                        help='Restore only these components; repeat to add more (default: all)')
+    parser.add_argument('--list-components', action='store_true', help='List available user-level components and exit')
     args = parser.parse_args(argv)
     try:
+        components = None
+        if args.components is not None:
+            names = [name.strip() for group in args.components for name in group.split(',')]
+            if not all(names):
+                raise ValueError('--components requires nonempty component names')
+            components = selected_components(names)
+        if args.list_components:
+            print('\n'.join(sorted(COMPONENTS)))
+            return 0
         home = args.home.expanduser().absolute() if args.home else Path.home()
         config = home / '.config' if args.home else Path(os.environ.get('XDG_CONFIG_HOME') or home / '.config').expanduser()
         data = home / '.local/share' if args.home else Path(os.environ.get('XDG_DATA_HOME') or home / '.local/share').expanduser()
@@ -113,7 +171,7 @@ def main(argv=None):
         bundle = Path(__file__).resolve().parent
         zshdir = home if args.home else Path(os.environ.get('ZDOTDIR') or home).expanduser()
         writes = plan(bundle, home, config, data, firefox_profile=firefox_profile,
-                      librewolf_profile=librewolf_profile, zshdir=zshdir)
+                      librewolf_profile=librewolf_profile, zshdir=zshdir, components=components)
         changed = 0
         for filename, content, mode in writes:
             if args.dry_run:
@@ -123,9 +181,11 @@ def main(argv=None):
                 changed += 1
         if not args.dry_run:
             print(f'Updated {changed} files. No applications were restarted.')
-        if firefox_profile is None:
+            if components is None or 'vim' in components:
+                print('Vim plugins: open Vim as the destination user and run :PlugInstall (requires Git and internet access).')
+        if firefox_profile is None and (components is None or 'firefox' in components):
             print('Firefox overlay was not selected; rerun with --firefox-profile PATH after Firefox creates a profile.')
-        if librewolf_profile is None:
+        if librewolf_profile is None and (components is None or 'librewolf' in components):
             print('LibreWolf overlay was not selected; rerun with --librewolf-profile PATH after LibreWolf creates a profile.')
         return 0
     except (OSError, ValueError) as error:

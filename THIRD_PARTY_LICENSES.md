@@ -4,11 +4,6 @@ The root `LICENSE` applies to original template_config material. The following
 bundled material remains under its own license or usage terms:
 
 - `.vim/autoload/plug.vim`: vim-plug, MIT license embedded in the file.
-- `.vim/plugged/ultisnips/`: GNU General Public License v3; see its
-  `COPYING.txt`.
-- `.vim/plugged/vim-airline/`: MIT; see its `LICENSE`.
-- `.vim/plugged/vim-airline-themes/`: MIT; see its `LICENSE`.
-- `.vim/plugged/vimtex/`: MIT; see its `LICENSE.md`.
 - `.config/qtile/wallpaper.jpg`: image source and credit: NASA and the Space
   Telescope Science Institute (STScI). The embedded metadata identifies STScI
   as the publisher and source and links to the

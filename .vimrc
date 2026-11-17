@@ -18,7 +18,9 @@ set cc=80
 set relativenumber
 set formatoptions+=t
 set mouse=a
-set clipboard=unnamedplus
+if has('clipboard')
+    set clipboard=unnamedplus
+endif
 set cursorline
 set ttyfast
 set noswapfile
@@ -46,7 +48,7 @@ augroup ColumnExceptions
 augroup END
 
 if empty(v:servername) && exists('*remote_startserver')
-      call remote_startserver('VIM')
+      silent! call remote_startserver('VIM')
 endif
 
 " Vimtex settings
@@ -70,6 +72,7 @@ let g:vimtex_quickfix_ignore_filters = ['Underfull', 'Overfull',]
 let g:airline_theme='minimalist'
 
 " Plugins
+" After restoring this configuration, run :PlugInstall in Vim.
 call plug#begin()
 " Make sure you use single quotes
 Plug 'lervag/vimtex'
